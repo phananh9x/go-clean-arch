@@ -1,0 +1,17 @@
+basePath: /v1
+host: localhost:3070
+info:
+  contact: {}
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: '[API Document] - Golang API'
+  version: 1.0.0
+paths: {}
+securityDefinitions:
+  AccessToken:
+    in: header
+    name: x-access-token
+    type: apiKey
+swagger: "2.0"

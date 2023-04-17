@@ -1,0 +1,23 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "[API Document] - Golang API",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {},
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "host": "localhost:3070",
+    "basePath": "/v1",
+    "paths": {},
+    "securityDefinitions": {
+        "AccessToken": {
+            "type": "apiKey",
+            "name": "x-access-token",
+            "in": "header"
+        }
+    }
+}

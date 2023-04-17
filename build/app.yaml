@@ -1,0 +1,31 @@
+environment: ${ENVIRONMENT}
+service_name: ${SERVICE_NAME}
+auth:
+  api:
+    jwt_public_key: ${AUTH_API_PUBLIC_KEY}
+    jwt_private_key: ${AUTH_API_PRIVATE_KEY}
+    jwt_expire_time: ${AUTH_API_JWT_EXPIRE_TIME}
+mgo:
+  mgo_uri: ${MGO_URI}
+  max_pool: ${MAX_POOL}
+
+kafka:
+  addrs: ${KAFKA_ADDRS}
+  topics: ${KAFKA_TOPICS}
+  group: ${KAFKA_GROUP}
+  max_message_bytes: ${KAFKA_MAX_MESSAGE_BYTES}
+  compress: ${KAFKA_COMPRESS}
+  newest: ${KAFKA_NEWEST}
+  version: ${KAFKA_VERSION}
+  
+redis:
+  cache_time: ${REDIS_CACHE_TIME}
+  connection_url: ${REDIS_CONNECTION_URL}
+  pool_size: ${REDIS_POOL_SIZE}
+  dial_timeout_seconds: ${REDIS_DIAL_TIMEOUT_SECONDS}
+  read_timeout_seconds: ${REDIS_READ_TIMEOUT_SECONDS}
+  write_timeout_seconds: ${REDIS_WRITE_TIMEOUT_SECONDS}
+  idle_timeout_seconds: ${REDIS_IDLE_TIMEOUT_SECONDS}
+swagger:
+  host: ${SWAGGER_HOST}
+  base_path: ${SWAGGER_BASE_PATH}

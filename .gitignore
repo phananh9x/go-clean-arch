@@ -1,0 +1,5 @@
+vendor
+.base*
+.idea
+.idea/
+.vscode

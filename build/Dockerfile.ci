@@ -1,0 +1,22 @@
+FROM golang:1.13-alpine
+
+ARG GITHUB_TOKEN
+
+ENV CGO_ENABLED=0
+ENV GOARCH=amd64
+ENV GOOS=linux
+ENV GO111MODULE=on
+ENV GOPATH /go
+ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
+
+RUN apk add --update --no-cache ca-certificates curl git
+RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH"
+
+WORKDIR /src
+
+COPY . .
+RUN git config --global url."https://${GITHUB_TOKEN}:x-oauth-basic@gitlab.com/".insteadOf "https://gitlab.com/"
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go mod download
+
+RUN ./scripts/bin.sh test
+RUN ./scripts/bin.sh lint

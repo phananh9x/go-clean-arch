@@ -1,0 +1,15 @@
+version: "3.7"
+services:
+    redis:
+      image: redis:5.0.6-alpine
+      restart: always
+      ports:
+        - 6381:6379
+    mongo:
+      image: mongo
+      restart: always
+      environment:
+        MONGO_INITDB_ROOT_USERNAME: root
+        MONGO_INITDB_ROOT_PASSWORD: change_me
+      ports:
+        - 27018:27017
