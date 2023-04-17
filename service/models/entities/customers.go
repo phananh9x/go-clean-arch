@@ -16,6 +16,11 @@ type Customers struct {
 	UpdatedAt  int64  `json:"updated_at" bson:"updated_at" redis:"updated_at"`
 }
 
+// ComparePassword ...
+func (c Customers) ComparePassword(password string) bool {
+	return utils.ComparePasswordHashWithSalt(password, c.Salt, c.Password)
+}
+
 //customersBuilder ...
 type customersBuilder struct {
 	customer *Customers

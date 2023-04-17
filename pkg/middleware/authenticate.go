@@ -6,7 +6,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"go-clean-arch/pkg/ginwrapper"
 	"go-clean-arch/pkg/jwt"
-	"strings"
 )
 
 var (
@@ -31,16 +30,16 @@ func WebHookAuthentication() gin.HandlerFunc {
 func APIAuthentication(verifier jwt.IVerifier) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		ctx := &ginwrapper.Context{Context: c}
-		tokenBearer := c.Request.Header.Get("Authorization")
-		if tokenBearer == "" {
+		token := c.Request.Header.Get("Authorization")
+		if token == "" {
 			ctx.BadRequest(ErrAuthorizationNotFound)
 			return
 		}
-		token := strings.TrimPrefix(tokenBearer, "Bearer ")
-		if token == tokenBearer {
-			ctx.BadRequest(ErrTokenNotFound)
-			return
-		}
+		//token := strings.TrimPrefix(tokenBearer, "Bearer ")
+		//if token == tokenBearer {
+		//	ctx.BadRequest(ErrTokenNotFound)
+		//	return
+		//}
 
 		claims := &AccessTokenClaims{}
 		err := verifier.Verify(token, claims)

@@ -22,3 +22,7 @@ func GeneratePasswordHashWithSalt(password, salt string) string {
 	hash.Write([]byte(password + salt))
 	return hex.EncodeToString(hash.Sum(nil))
 }
+
+func ComparePasswordHashWithSalt(password, salt, hash string) bool {
+	return GeneratePasswordHashWithSalt(password, salt) == hash
+}

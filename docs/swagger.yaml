@@ -1,4 +1,96 @@
-basePath: /v1
+basePath: /
+definitions:
+  dto.CustomerInfo:
+    properties:
+      created_at:
+        type: string
+      customer_id:
+        type: string
+      dob:
+        type: string
+      email:
+        type: string
+      name:
+        type: string
+      phone:
+        type: string
+      username:
+        type: string
+    type: object
+  dto.CustomerLoginRequest:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  dto.CustomerLoginResponse:
+    properties:
+      access_token:
+        type: string
+      customer_info:
+        $ref: '#/definitions/dto.CustomerInfo'
+    type: object
+  dto.CustomerSignUpRequest:
+    properties:
+      dob:
+        type: string
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+      phone:
+        type: string
+      username:
+        type: string
+    type: object
+  dto.CustomerSignUpResponse:
+    properties:
+      created_at:
+        type: string
+      customer_id:
+        type: string
+      dob:
+        type: string
+      email:
+        type: string
+      name:
+        type: string
+      phone:
+        type: string
+      username:
+        type: string
+    type: object
+  models.Errors:
+    properties:
+      extensions:
+        $ref: '#/definitions/models.Extensions'
+      message:
+        type: string
+    type: object
+  models.Extensions:
+    properties:
+      back_to_home:
+        type: boolean
+      code:
+        type: string
+      field:
+        type: string
+      status_code:
+        type: integer
+    type: object
+  models.JSONResult:
+    properties:
+      code:
+        type: integer
+      data: {}
+      errors:
+        items:
+          $ref: '#/definitions/models.Errors'
+        type: array
+    type: object
 host: localhost:3070
 info:
   contact: {}
@@ -8,10 +100,122 @@ info:
   termsOfService: http://swagger.io/terms/
   title: '[API Document] - Golang API'
   version: 1.0.0
-paths: {}
+paths:
+  /v1/customers/info:
+    get:
+      consumes:
+      - application/json
+      description: GetCustomerInfo customer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.JSONResult'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.CustomerInfo'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Errors'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.Errors'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Errors'
+      security:
+      - JWT: []
+      summary: GetCustomerInfo customer
+      tags:
+      - Customers
+  /v1/customers/login:
+    post:
+      consumes:
+      - application/json
+      description: Login customer
+      parameters:
+      - description: The body of login
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CustomerLoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.JSONResult'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.CustomerLoginResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Errors'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.Errors'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Errors'
+      summary: Login customer
+      tags:
+      - Customers
+  /v1/customers/signup:
+    post:
+      consumes:
+      - application/json
+      description: register new customer
+      parameters:
+      - description: The body of add new customer
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CustomerSignUpRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.JSONResult'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.CustomerSignUpResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Errors'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.Errors'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Errors'
+      summary: Register customer
+      tags:
+      - Customers
 securityDefinitions:
-  AccessToken:
+  JWT:
     in: header
-    name: x-access-token
+    name: Authorization
     type: apiKey
 swagger: "2.0"

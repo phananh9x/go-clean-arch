@@ -14,6 +14,9 @@ type CustomersRepository interface {
 	// Retrieve a customer by their customer ID
 	GetByID(ctx context.Context, customerID string) (*entities.Customers, error)
 
+	// Retrieve a customer by their username
+	GetByUserName(ctx context.Context, username string) (*entities.Customers, error)
+
 	// Update an existing customer
 	Update(ctx context.Context, customer *entities.Customers) error
 
@@ -40,6 +43,16 @@ func (repo *customersRepository) Create(ctx context.Context, customer *entities.
 
 func (repo *customersRepository) GetByID(ctx context.Context, customerID string) (*entities.Customers, error) {
 	filter := bson.M{"customer_id": customerID}
+	var result entities.Customers
+	err := repo.collection.FindOne(ctx, filter).Decode(&result)
+	if err != nil {
+		return nil, err
+	}
+	return &result, nil
+}
+
+func (repo *customersRepository) GetByUserName(ctx context.Context, username string) (*entities.Customers, error) {
+	filter := bson.M{"username": username}
 	var result entities.Customers
 	err := repo.collection.FindOne(ctx, filter).Decode(&result)
 	if err != nil {

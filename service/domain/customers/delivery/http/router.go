@@ -9,5 +9,6 @@ func (h *customerHandler) CustomerAPIRoute(router *gin.RouterGroup) {
 
 //CustomerAPIRoutePublic ...
 func (h *customerHandler) CustomerAPIRoutePublic(router *gin.RouterGroup) {
-	router.GET("/customers/token", h.Login())
+	router.POST("/customers/login", h.Login())
+	router.POST("/customers/signup", h.Signup())
 }

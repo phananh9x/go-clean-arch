@@ -5,6 +5,7 @@ import (
 	"github.com/go-redis/redis/v8"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
+	_ "go-clean-arch/docs"
 	"go-clean-arch/pkg/ginwrapper"
 	"go-clean-arch/pkg/middleware"
 	customerHdl "go-clean-arch/service/domain/customers/delivery/http"
@@ -36,14 +37,15 @@ func (s *Server) initCORS() {
 // @title [API Document] - Golang API
 // @version 1.0.0
 
-// @securityDefinitions.apikey AccessToken
+// @securityDefinitions.apikey JWT
 // @in header
-// @name x-access-token
+// @name Authorization
+// @scheme bearer
 
 // @license.name Apache 2.0
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
 // @host      localhost:3070
-// @BasePath  /v1
+// @BasePath  /
 // @termsOfService http://swagger.io/terms/
 // InitSwagger ...
 func (s *Server) initSwagger() {

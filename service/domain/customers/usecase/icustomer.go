@@ -4,14 +4,14 @@ import (
 	"context"
 	"go-clean-arch/config"
 	"go-clean-arch/pkg/jwt"
-	dto2 "go-clean-arch/service/models/dto"
+	"go-clean-arch/service/models/dto"
 	"go-clean-arch/service/repository"
 )
 
 type ICustomerUseCase interface {
-	GetCustomerInfo(context context.Context, customerId string) (dto2.CustomerInfo, error)
-	GetAccessToken(context context.Context, username string, password string) (string, error)
-	SignUp(context context.Context, customer dto2.CustomerSignUpRequest) (dto2.CustomerSignUpResponse, error)
+	GetCustomerInfo(context context.Context, customerId string) (dto.CustomerInfo, error)
+	Login(context context.Context, request dto.CustomerLoginRequest) (dto.CustomerLoginResponse, error)
+	SignUp(context context.Context, customer dto.CustomerSignUpRequest) (dto.CustomerSignUpResponse, error)
 }
 
 type customerUseCase struct {
